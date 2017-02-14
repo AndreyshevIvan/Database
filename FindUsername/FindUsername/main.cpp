@@ -118,7 +118,6 @@ void AddRecotdToMemory(std::map<char, std::fstream*>& memory, std::pair<int, std
 std::pair<int, std::string> ParseNameAndId(std::string const& record)
 {
 	std::stringstream stream(record);
-	std::string username = "";
 	int id = 0;
 	int symbolsCount = 0;
 	char symbol;
@@ -135,16 +134,20 @@ std::pair<int, std::string> ParseNameAndId(std::string const& record)
 	}
 
 	stream >> symbol;
-	while (symbol != ',')
+	std::string username = std::string(&symbol, 0, 1);
+	char wantedSymbol = (symbol == '"') ? '"' : ',';
+	stream >> symbol;
+
+	while (symbol != wantedSymbol)
 	{
 		username += std::string(&symbol, 0, 1);
 		stream >> symbol;
 	}
 
-	if (username[0] == '"' && username[username.size() - 1] == '"')
+	if (username[0] == '"') // && username[username.size() - 1] == '"')
 	{
 		std::string newUsername = "";
-		for (size_t i = 1; i != username.size() - 1; i++)
+		for (size_t i = 1; i != username.size(); i++)
 		{
 			newUsername = newUsername + username[i];
 		}
