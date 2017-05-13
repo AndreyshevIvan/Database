@@ -1,10 +1,11 @@
 2 Выдать все полученные оценки группы ИВТ-11 по математике.
 
   SELECT valuation.mark FROM (
-    lesson LEFT JOIN subject ON lesson.id_subject = subject.id_subject
-      LEFT JOIN stud_group ON lesson.id_group = stud_group.id_group
-        LEFT JOIN valuation ON lesson.id_lesson = valuation.id_lesson
-  ) WHERE subject.name = 'math' AND stud_group.name = 'ИВТ-11'
+    lesson 
+    LEFT JOIN subject ON lesson.id_subject = subject.id_subject
+    LEFT JOIN stud_group ON lesson.id_group = stud_group.id_group
+    LEFT JOIN valuation ON lesson.id_lesson = valuation.id_lesson
+  )   WHERE subject.name = 'math' AND stud_group.name = 'ИВТ-11'
 ----------------------------------------------------------------
 
 3 Дать информацию о должниках группы ПС-41 с указанием фамилии студента и названия предмета. Должниками считаются студенты, не имеющие оценки по предмету, который ведется в группе.
